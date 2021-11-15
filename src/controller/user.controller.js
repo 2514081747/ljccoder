@@ -5,7 +5,6 @@ class userController {
     // ctx.body = '用户注册接口'
     // 1.获取用户上传的username和password
     const { name, password } = ctx.request.body;
-    console.log(name, password);
     // 2.判断username和password不为空
     if (!name || !password) {
       // const error = new Error(USER_OR_PASSWORD_IS_NOT_EXISTS)

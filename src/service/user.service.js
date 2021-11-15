@@ -6,11 +6,9 @@ class UserService {
         const statement = `INSERT INTO user (name,password) VALUES (?,?);`
         // 2.执行sql语句
         const result = await connection.execute(statement,[name,password])
-        console.log(result)
         // ctx.body = result
         return result[0]
     }
-
     async getUserName(name){
         // 1.注入sql语句
         const statement = `SELECT * from user where name = ?;`

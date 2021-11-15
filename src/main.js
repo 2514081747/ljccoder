@@ -1,7 +1,6 @@
 const app = require('./app/index')
 const config = require('./app/config')
 const errorHander = require('./app/error-handle')
-console.log(config.APP_PORT)
 app.on('error',errorHander)
 require('./app/database')
 
