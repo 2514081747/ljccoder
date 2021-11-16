@@ -48,8 +48,6 @@ class momentController {
     // 2.根据momentId删除该条数据
     const result = await deleteMomentservice(momentId)
     ctx.body = result
-
-
   }
 }
 
