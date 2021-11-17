@@ -9,6 +9,7 @@ const publicKey = fs.readFileSync(
 const { TOKEN_IS_NOT_EXISTS,NOT_HAS_PERMISSION } = require("../app/error-types");
 
 const {checkMomentPermission} = require('../service/moment.service')
+const {checkComment} = require('../service/comment.service')
 const verfyLogin = async (ctx, next) => {
   // 1.拿到token 判断用户是否登录
   const { authorization } = ctx.request.headers;
@@ -48,7 +49,27 @@ const permission = async (ctx, next) => {
     
 };
 
+// 判断用户是否是更新评论的权限
+const commentPermission = async (ctx,next) => {
+  // console.log('aaaa')
+  // 1、拿到commentId 和 userId
+  const {commentId} = ctx.params
+  const {id} = ctx.user
+  console.log(commentId,id)
+  // 2、查询数据库判断是否具有权限
+  const result = await checkComment(commentId,id)
+  console.log(result)
+  if(result){
+    await next()
+  }else{
+    const error = new Error(NOT_HAS_PERMISSION)
+    return ctx.app.emit('error',error,ctx)
+  }
+
+}
+
 module.exports = {
   verfyLogin,
-  permission
+  permission,
+  commentPermission
 };
