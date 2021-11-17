@@ -2,13 +2,13 @@ const KoaRouter = require("koa-router");
 
 const momentRouter = new KoaRouter({ prefix: "/moment" });
 
-const { verfyLogin, permission } = require("../middleware/moment.middleware");
+const { verfyLogin, permission,isLabelExistAndCreate } = require("../middleware/moment.middleware");
 const {
   create,
   list,
   detail,
   update,
-  deleteMoment
+  deleteMoment,
 } = require("../controller/moment.controller");
 
 // 发表动态之前，验证用户是否登录
@@ -22,5 +22,7 @@ momentRouter.get("/:momentId", detail);
 momentRouter.patch("/:momentId", verfyLogin, permission, update);
 // 5.删除某条动态的内容
 momentRouter.delete('/:momentId',verfyLogin,permission,deleteMoment)
+// 6、给动态添加标签
+momentRouter.post('/:momentId/labels',verfyLogin,permission,isLabelExistAndCreate)
 
 module.exports = momentRouter;
